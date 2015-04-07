@@ -1,50 +1,43 @@
-/*$("#main").append("Alvin Yuan");
-var name = "Alvin Yuan";
-var role = "Front-End Developer";
-
-var formattedName = HTMLheaderName.replace("%data%", name);
-var formattedRole = HTMLheaderRole.replace("%data%", role);
-
-$("#header").prepend(formattedRole);
-$("#header").prepend(formattedName);
-*/
-
-
 var bio = {
 	"name" : "Alvin Yuan",
 	"role" : "Front-End Developer",
 	"contacts" : {
-		"mobile" : "925-818-7858",
+		"mobile" : "310-270-0336",
 		"email" : "alvinyuan@gmail.com",
-		"github" : "ayuan214",
+		"github" : "www.github.com/ayuan214",
 		"twitter" : "@ayuan214",
 		"location" : "Torrance, CA"
 	},
 
-	"welcomeMessage" : "lorem ipsum dolor sit amet etc etc etc",
+	"welcomeMessage" : "Check out my projects below!",
 	"skills" : [
-		"awesomeness", "delivering things", "cryogenic sleep", "saving the universe"
+		"jQuery", "AngularJS", "HTML/CSS", "PHP", "mySQL"
 	],
-	"bioPic": "images/fry.jpg"
+	"bioPic": "images/profile.jpg"
 }
 
 
 var education = {
-	"schools" : {
-		"name" : "University of California, Davis",
-		"location" : "Davis, CA,",
-		"degree" : "Bachelor of Science",
-		"majors" : ["Mechanical Engineering", "Aerospace Science Engineering"],
-		"dates" : 2012,
-		"url" : "https://google.com"
-	},
+	"schools" : [
+		{
+			"name" : "University of California, Davis",
+			"location" : "Davis, CA",
+			"degree" : "Bachelor of Science",
+			"majors" : ["Mechanical Engineering", "Aerospace Science Engineering"],
+			"dates" : 2012,
+			"url" : "https://google.com"
+		}
+		
+	],
 
-	"onlineCourses" : {
-		"title": "Front-End Nanodegree",
-		"school" : "Udacity",
-		"dates" : 2015,
-		"url" : "www.udacity.com"
-	}
+	"onlineCourses" : [
+		{
+			"title": "Front-End Nanodegree",
+			"school" : "Udacity",
+			"dates" : 2015,
+			"url" : "www.udacity.com"
+		}
+	]
 }
 
 var work = {
@@ -54,7 +47,7 @@ var work = {
 			"title" : "Large Project Lead, UX Engineer",
 			"location" : "Torrance, CA",
 			"dates" : "Nov 2012 - Current",
-			"description" : "Developed new HMI systems to put into future Honda and Acura vehicles"
+			"description" : "Project lead for new UX for Acura and Honda infotainment units"
 		},
 		{
 			"employer" : "Newnex Technologies Corp",
@@ -69,11 +62,11 @@ var work = {
 var projects = {
 	"projects" : [
 		{
-			"title" : "Sample Project 1",
-			"dates" : "2014",
-			"description" : "Created portfolio",
+			"title" : "Project-1: Portfolio",
+			"dates" : "2015",
+			"description" : "Developed a mobile responsive portfolio using Boostrap",
 			"images" : [
-				"images/197x148.gif", "images/197x148.gif"
+				"images/project1_pic1.png", "images/project1_pic2.png"
 			]		
 		}	
 
@@ -94,50 +87,34 @@ bio.display = function() {
 	$("#header").prepend(formattedRole);
 	$("#header").prepend(formattedName);
 	var formattedContact = formattedMobile + formattedEmail + formattedGithub + formattedTwitter + formattedLocation;
-	$("#header").append(formattedContact);
+	$("#topContacts").append(formattedContact);
 	$("#header").append(formattedPic);
 	$("#header").append(formattedMessage);
+	$("#footerContacts").append(formattedContact);
 	
 
 
-	if (bio.skills.length > 0) {
+	/*if (bio.skills.length > 0) {
 		$("#header").append(HTMLskillsStart);
 
 		for (i in bio.skills){
 			var formattedSkill = HTMLskills.replace("%data%", bio.skills[i]);
 			$("#skills").append(formattedSkill);
 		}
-	} 
-/*
-	$("#header").append(formattedMobile);
-	$("#header").append(formattedEmail);
-	$("#header").append(formattedGithub);
-	$("#header").append(formattedTwitter);
-	$("#header").append(formattedLocation);
-	*/
-
-	/*
-	for (project in projects.projects) {
-		var formattedTitle = HTMLprojectTitle.replace("%data%", projects.projects[project].title);
-		$(".project-entry:last").append(formattedTitle);
-		var formattedDates = HTMLprojectDates.replace("%data%", projects.projects[project].dates);
-		$(".project-entry:last").append(formattedDates);
-		var formattedDescription = HTMLprojectDescription.replace("%data%", projects.projects[project].description);
-		$(".project-entry:last").append(formattedDescription);
-
-		if (projects.projects[project].images.length > 0) {
-			for (image in projects.projects[project].images) {
-				var formattedImage = HTMLprojectImage.replace("%data%", projects.projects[project].images[image]);
-			$(".project-entry:last").append(formattedImage); 				
-			}
-		}
 	} */
+
+    if (bio.skills.length > 0) {
+        $('#header').append(HTMLskillsStart);
+        bio.skills.forEach(function (skill) {
+            var formattedSkill = HTMLskills.replace("%data%", skill);
+            $('#skills').append(formattedSkill);
+        });
+    }
+
 }
 bio.display(); 
 
-
-
-function displayWork() {
+work.display = function() {
 	for (job in work.jobs) {
 		$("#workExperience").append(HTMLworkStart);
 
@@ -153,7 +130,7 @@ function displayWork() {
 	}
 }
 
-displayWork();
+work.display();
 
 projects.display = function() {
 	for (project in projects.projects) {
@@ -176,5 +153,46 @@ projects.display = function() {
 }
 
 projects.display(); 
+
+education.display = function() {
+	for (uni in education.schools) {
+		$("#education").append(HTMLschoolStart);
+
+		var formattedName = HTMLschoolName.replace("%data%", education.schools[uni].name);
+		var formattedDegree = HTMLschoolDegree.replace("%data%", education.schools[uni].degree);
+		var formattedDates = HTMLschoolDates.replace("%data%", education.schools[uni].dates);
+		var formattedLocation = HTMLschoolLocation.replace("%data%", education.schools[uni].location);
+
+		$(".education-entry:last").append(formattedName);
+		$(".education-entry:last").append(formattedDates)
+		$(".education-entry:last").append(formattedDegree);
+		$(".education-entry:last").append(formattedLocation);
+
+		for (major in education.schools[uni].majors) {
+			var formattedMajor = HTMLschoolMajor.replace("%data%", education.schools[uni].majors[major]);
+			$(".education-entry:last").append(formattedMajor);
+		}
+
+	}
+
+	for (uni in education.onlineCourses) {
+		$("#education").append(HTMLschoolStart);
+
+		var formattedTitle = HTMLonlineTitle.replace("%data%", education.onlineCourses[uni].title);
+		$(".education-entry:last").append(formattedTitle);
+
+		var formattedSchool = HTMLonlineSchool.replace("%data%", education.onlineCourses[uni].school);
+		$(".education-entry:last").append(formattedSchool);
+
+		var formattedDates = HTMLonlineDates.replace("%data%", education.onlineCourses[uni].dates);
+		$(".education-entry:last").append(formattedDates);
+
+		var formattedURL = HTMLonlineURL.replace("%data%", education.onlineCourses[uni].url);
+		$(".education-entry:last").append(formattedURL);
+	}
+	
+}
+
+education.display(); 
 
 $("#mapDiv").append(googleMap);
